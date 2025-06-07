@@ -142,6 +142,42 @@ img {
     flex: 1;
 }
 
+.publications {
+    padding: 4rem 1rem;
+    text-align: center;
+}
+
+.pub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 2rem auto 0;
+}
+
+.pub-card {
+    background: linear-gradient(135deg, #ffffff, #f0f4f8);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 2rem;
+}
+
+.pub-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+.pub-label {
+    font-size: 1rem;
+    color: #555;
+}
+
+.pub-btn {
+    margin-top: 2rem;
+}
+
 .resume {
     padding: 4rem 1rem;
     text-align: center;
