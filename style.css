@@ -145,6 +145,7 @@ img {
 .publications {
     padding: 4rem 1rem;
     text-align: center;
+    position: relative;
 }
 
 .pub-wrapper {
@@ -159,7 +160,8 @@ img {
 .pub-3d {
     flex: 1 1 300px;
     min-height: 300px;
-    position: relative;
+    position: absolute;
+    inset: 0;
 }
 
 .pub-3d canvas {
