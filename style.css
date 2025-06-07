@@ -162,6 +162,8 @@ img {
     min-height: 300px;
     position: absolute;
     inset: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .pub-3d canvas {

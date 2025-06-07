@@ -26,9 +26,9 @@ window.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.4 });
 
   counters.forEach(c => io.observe(c));
-
-  initThree();
 });
+
+window.addEventListener('load', initThree);
 
 function animateCounter(el) {
   const target = +el.dataset.target;
