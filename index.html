@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 </head>
 <body>
   <header>
@@ -67,22 +69,27 @@
 
     <section id="publications" class="publications">
       <h2 data-aos="fade-up">Publications &amp; Research</h2>
-      <div class="pub-grid">
-        <div class="pub-card" data-aos="fade-up">
-          <span class="pub-number" data-target="20">0</span>
-          <span class="pub-label">Total Publications</span>
+      <div class="pub-wrapper">
+        <div class="pub-3d" aria-hidden="true">
+          <canvas id="moleculeCanvas"></canvas>
         </div>
-        <div class="pub-card" data-aos="fade-up" data-aos-delay="100">
-          <span class="pub-number" data-target="327">0</span>
-          <span class="pub-label">Total Citations</span>
-        </div>
-        <div class="pub-card" data-aos="fade-up" data-aos-delay="200">
-          <span class="pub-number" data-target="9">0</span>
-          <span class="pub-label">h-index</span>
-        </div>
-        <div class="pub-card" data-aos="fade-up" data-aos-delay="300">
-          <span class="pub-number" data-target="9">0</span>
-          <span class="pub-label">i10-index</span>
+        <div class="pub-grid">
+          <div class="pub-card" data-aos="fade-up">
+            <span class="pub-number" data-target="20">0</span>
+            <span class="pub-label">Total Publications</span>
+          </div>
+          <div class="pub-card" data-aos="fade-up" data-aos-delay="100">
+            <span class="pub-number" data-target="327">0</span>
+            <span class="pub-label">Total Citations</span>
+          </div>
+          <div class="pub-card" data-aos="fade-up" data-aos-delay="200">
+            <span class="pub-number" data-target="9">0</span>
+            <span class="pub-label">h-index</span>
+          </div>
+          <div class="pub-card" data-aos="fade-up" data-aos-delay="300">
+            <span class="pub-number" data-target="9">0</span>
+            <span class="pub-label">i10-index</span>
+          </div>
         </div>
       </div>
       <a href="https://scholar.google.com/citations?user=VRnOvFAAAAAJ" target="_blank" rel="noopener" class="btn pub-btn" data-aos="fade-up" data-aos-delay="400">Publications List</a>
@@ -120,39 +127,6 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
-    VanillaTilt.init(document.querySelectorAll('.project-card'), { max: 15, speed: 400, glare: true, 'max-glare': 0.2 });
-    AOS.init({ once: true });
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    menuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('show');
-    });
-
-    const pubCounters = document.querySelectorAll('.pub-number');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const counter = entry.target;
-          const target = +counter.getAttribute('data-target');
-          const increment = Math.ceil(target / 100);
-          const update = () => {
-            const value = +counter.innerText;
-            if (value < target) {
-              counter.innerText = Math.min(value + increment, target);
-              requestAnimationFrame(update);
-            } else {
-              counter.innerText = target;
-            }
-          };
-          update();
-          observer.unobserve(counter);
-        }
-      });
-    }, { threshold: 0.3 });
-
-    pubCounters.forEach(c => observer.observe(c));
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
