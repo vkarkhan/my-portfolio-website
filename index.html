@@ -1,96 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Varad Karkhanis - Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Varad Karkhanis - Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="logo">Varad Karkhanis</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header>
+    <nav class="navbar">
+      <div class="logo">Varad Karkhanis</div>
+      <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#resume">Resume</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <main>
-        <section id="home" class="hero">
-            <h1>Hi, I'm Varad</h1>
-            <h2>Engineer. Innovator. AI Enthusiast.</h2>
-            <p>I'm passionate about fuel cells, systems engineering, and artificial intelligence. This website showcases my work and interests.</p>
-            <a href="#projects" class="btn">View My Work</a>
-        </section>
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-content" data-aos="fade-up">
+        <h1>Hi, I'm Varad</h1>
+        <h2>Engineer. Innovator. AI Enthusiast.</h2>
+        <p>I'm passionate about fuel cells, AI, and systems engineering. My work focuses on innovation in clean energy and intelligent automation.</p>
+        <a href="#projects" class="btn">View My Work</a>
+      </div>
+    </section>
 
-        <section id="about" class="about">
-            <h2>About Me</h2>
-            <div class="about-content">
-                <img src="https://via.placeholder.com/200" alt="Varad Karkhanis">
-                <div>
-                    <p>I hold a Ph.D. in Mechanical Engineering and work as a Senior Tech Lead at ZF. My focus is on hydrogen fuel cell systems, virtual sensors, and AI automation tools. I'm driven by a passion for clean energy and innovation.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects" class="projects">
-            <h2>Projects</h2>
-            <div class="project-grid">
-                <div class="project-card">
-                    <img src="https://via.placeholder.com/300x200" alt="Project 1">
-                    <h3>Project One</h3>
-                    <p>A brief description of the first project explaining its goals and key accomplishments.</p>
-                    <a href="#" class="btn">View on GitHub</a>
-                </div>
-                <div class="project-card">
-                    <img src="https://via.placeholder.com/300x200" alt="Project 2">
-                    <h3>Project Two</h3>
-                    <p>An overview of the second project with two or three lines about the work and results.</p>
-                    <a href="#" class="btn">View on GitHub</a>
-                </div>
-                <div class="project-card">
-                    <img src="https://via.placeholder.com/300x200" alt="Project 3">
-                    <h3>Project Three</h3>
-                    <p>A short description of the third project, highlighting the technologies used and outcomes.</p>
-                    <a href="#" class="btn">View on GitHub</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="resume" class="resume">
-            <h2>Resume</h2>
-            <a href="#" class="btn">Download My Resume (PDF)</a>
-        </section>
-
-        <section id="contact" class="contact">
-            <h2>Contact Me</h2>
-            <form action="#" method="post">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
-
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="5" required></textarea>
-
-                <button type="submit" class="btn">Submit</button>
-            </form>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 Varad Karkhanis</p>
-        <div class="social">
-            <a href="#">LinkedIn</a>
-            <a href="#">GitHub</a>
-            <a href="mailto:example@example.com">Email</a>
+    <section id="about" class="about">
+      <div class="about-container" data-aos="fade-up">
+        <div class="about-image">
+          <img src="https://via.placeholder.com/300" alt="Varad Karkhanis">
         </div>
-    </footer>
+        <div class="about-text">
+          <p>Ph.D. and Senior Tech Lead at ZF focused on fuel cell systems and AI innovation. Passionate about advanced mobility, sustainable technology, and building intelligent tools.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="projects">
+      <h2 data-aos="fade-up">Projects</h2>
+      <div class="project-grid">
+        <div class="project-card" data-tilt data-aos="fade-up">
+          <h3>Project One</h3>
+          <p>Brief description of the first project describing its goals and accomplishments.</p>
+          <a href="#" class="btn">View on GitHub</a>
+        </div>
+        <div class="project-card" data-tilt data-aos="fade-up" data-aos-delay="100">
+          <h3>Project Two</h3>
+          <p>Short overview of the second project with highlights of the results.</p>
+          <a href="#" class="btn">View on GitHub</a>
+        </div>
+        <div class="project-card" data-tilt data-aos="fade-up" data-aos-delay="200">
+          <h3>Project Three</h3>
+          <p>Description of the third project, mentioning technologies used.</p>
+          <a href="#" class="btn">View on GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="resume" class="resume">
+      <h2 data-aos="fade-up">Resume</h2>
+      <a href="resume.pdf" class="btn" data-aos="zoom-in">Download My Resume (PDF)</a>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2 data-aos="fade-up">Contact Me</h2>
+      <form action="#" method="post" data-aos="fade-up">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <button type="submit" class="btn">Submit</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Varad Karkhanis</p>
+    <div class="social">
+      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="mailto:example@example.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    VanillaTilt.init(document.querySelectorAll('.project-card'), { max: 15, speed: 400, glare: true, 'max-glare': 0.2 });
+    AOS.init({ once: true });
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  </script>
 </body>
 </html>
