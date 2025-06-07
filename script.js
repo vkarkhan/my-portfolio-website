@@ -47,7 +47,7 @@ function animateCounter(el) {
 }
 
 function initThree() {
-  const container = document.getElementById('moleculeCanvas');
+  const container = document.getElementById('moleculeContainer');
   if (!container) return;
 
   const scene = new THREE.Scene();
