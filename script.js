@@ -1,13 +1,17 @@
 // Global site functionality
 window.addEventListener('DOMContentLoaded', () => {
-  VanillaTilt.init(document.querySelectorAll('.project-card'), {
-    max: 15,
-    speed: 400,
-    glare: true,
-    'max-glare': 0.2
-  });
+  if (window.VanillaTilt) {
+    VanillaTilt.init(document.querySelectorAll('.project-card'), {
+      max: 15,
+      speed: 400,
+      glare: true,
+      'max-glare': 0.2
+    });
+  }
 
-  AOS.init({ once: true });
+  if (window.AOS && AOS.init) {
+    AOS.init({ once: true });
+  }
 
   const menuToggle = document.querySelector('.menu-toggle');
   const navLinks = document.querySelector('.nav-links');
@@ -48,7 +52,7 @@ function animateCounter(el) {
 
 function initThree() {
   const container = document.getElementById('moleculeContainer');
-  if (!container) return;
+  if (!container || typeof THREE === 'undefined') return;
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
