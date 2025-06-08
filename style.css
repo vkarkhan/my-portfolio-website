@@ -70,6 +70,21 @@ img {
     margin: 0 auto 2rem;
 }
 
+#spinningSphere {
+    width: 200px;
+    margin: 2rem auto 0;
+    cursor: pointer;
+}
+
+#spinningSphere.spin {
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+}
+
 .btn {
     display: inline-block;
     padding: 0.75rem 1.5rem;

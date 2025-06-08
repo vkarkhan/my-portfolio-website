@@ -30,6 +30,8 @@ window.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.4 });
 
   counters.forEach(c => io.observe(c));
+
+  initSphereAnimation();
 });
 
 window.addEventListener('load', initThree);
@@ -101,4 +103,30 @@ function initThree() {
     camera.updateProjectionMatrix();
     renderer.setSize(container.clientWidth, container.clientHeight);
   });
+}
+
+function initSphereAnimation() {
+  const sphere = document.getElementById('spinningSphere');
+  if (!sphere) return;
+
+  sphere.addEventListener('click', () => {
+    sphere.classList.toggle('spin');
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        sphere.classList.add('spin');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  observer.observe(sphere);
+
+  return { observer, sphere };
+}
+
+if (typeof module !== 'undefined') {
+  module.exports = { initSphereAnimation };
 }
