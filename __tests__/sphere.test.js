@@ -10,6 +10,9 @@ describe('spinning sphere', () => {
 
   afterEach(() => {
     global.IntersectionObserver = originalObserver;
+    if (global.window) {
+      delete global.window.IntersectionObserver;
+    }
     delete global.window;
     delete global.document;
   });
@@ -26,6 +29,7 @@ describe('spinning sphere', () => {
       observe() {}
       unobserve() {}
     }
+    window.IntersectionObserver = MockObserver;
     global.IntersectionObserver = MockObserver;
 
     const { sphere } = initSphereAnimation();
@@ -39,6 +43,7 @@ describe('spinning sphere', () => {
     global.window = window;
     global.document = window.document;
     class MockObserver { constructor(){} observe(){} unobserve(){} }
+    window.IntersectionObserver = MockObserver;
     global.IntersectionObserver = MockObserver;
 
     const { sphere } = initSphereAnimation();

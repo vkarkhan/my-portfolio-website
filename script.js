@@ -1,40 +1,48 @@
 // Global site functionality
-window.addEventListener('DOMContentLoaded', () => {
-  if (window.VanillaTilt) {
-    VanillaTilt.init(document.querySelectorAll('.project-card'), {
-      max: 15,
-      speed: 400,
-      glare: true,
-      'max-glare': 0.2
+if (typeof window !== 'undefined') {
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.VanillaTilt) {
+      VanillaTilt.init(document.querySelectorAll('.project-card'), {
+        max: 15,
+        speed: 400,
+        glare: true,
+        'max-glare': 0.2
+      });
+    }
+
+    if (window.AOS && AOS.init) {
+      AOS.init({ once: true });
+    }
+
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
     });
-  }
 
-  if (window.AOS && AOS.init) {
-    AOS.init({ once: true });
-  }
+    const counters = document.querySelectorAll('.pub-number');
+    if (!('IntersectionObserver' in window)) {
+      counters.forEach(counter => {
+        counter.textContent = counter.dataset.target;
+      });
+    } else {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
 
-  const menuToggle = document.querySelector('.menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('show');
+      counters.forEach(c => io.observe(c));
+    }
+
+    initSphereAnimation();
   });
 
-  const counters = document.querySelectorAll('.pub-number');
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateCounter(entry.target);
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.4 });
-
-  counters.forEach(c => io.observe(c));
-
-  initSphereAnimation();
-});
-
-window.addEventListener('load', initThree);
+  window.addEventListener('load', initThree);
+}
 
 function animateCounter(el) {
   const target = +el.dataset.target;
@@ -112,6 +120,11 @@ function initSphereAnimation() {
   sphere.addEventListener('click', () => {
     sphere.classList.toggle('spin');
   });
+
+  if (!('IntersectionObserver' in window)) {
+    sphere.classList.add('spin');
+    return { sphere };
+  }
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
