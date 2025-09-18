@@ -43,6 +43,11 @@ img {
     display: none;
     font-size: 1.5rem;
     cursor: pointer;
+    background: none;
+    border: 0;
+    color: inherit;
+    padding: 0;
+    line-height: 1;
 }
 
 .hero {
@@ -288,7 +293,9 @@ footer {
     }
 
     .menu-toggle {
-        display: block;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .about-container {

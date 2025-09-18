@@ -15,9 +15,21 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const menuToggle = document.querySelector('.menu-toggle');
   const navLinks = document.querySelector('.nav-links');
-  menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('show');
-  });
+
+  if (menuToggle && navLinks) {
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('show');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    navLinks.addEventListener('click', event => {
+      const link = event.target.closest('a');
+      if (link && navLinks.classList.contains('show')) {
+        navLinks.classList.remove('show');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
 
   const counters = document.querySelectorAll('.pub-number');
   const io = new IntersectionObserver(entries => {
