@@ -1,40 +1,91 @@
 // Global site functionality
-window.addEventListener('DOMContentLoaded', () => {
-  if (window.VanillaTilt) {
-    VanillaTilt.init(document.querySelectorAll('.project-card'), {
-      max: 15,
-      speed: 400,
-      glare: true,
-      'max-glare': 0.2
+if (typeof window !== 'undefined') {
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.VanillaTilt) {
+      VanillaTilt.init(document.querySelectorAll('.project-card'), {
+        max: 15,
+        speed: 400,
+        glare: true,
+        'max-glare': 0.2
+      });
+    }
+
+    if (window.AOS && AOS.init) {
+      AOS.init({ once: true });
+    }
+
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
     });
-  }
 
-  if (window.AOS && AOS.init) {
-    AOS.init({ once: true });
-  }
+    const counters = document.querySelectorAll('.pub-number');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
 
-  const menuToggle = document.querySelector('.menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('show');
+    counters.forEach(c => io.observe(c));
+
+    const moleculeContainer = document.getElementById('moleculeContainer');
+    if (moleculeContainer) {
+      const moleculeSection = document.querySelector('#publications') || moleculeContainer;
+      let moleculeControls = null;
+      let visibilityObserver = null;
+
+      const setupVisibilityObserver = () => {
+        if (visibilityObserver || !moleculeControls) return;
+        visibilityObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              moleculeControls.start?.();
+            } else {
+              moleculeControls.stop?.();
+            }
+          });
+        }, { threshold: 0.1 });
+
+        visibilityObserver.observe(moleculeContainer);
+      };
+
+      const initializeThree = () => {
+        if (moleculeControls || typeof THREE === 'undefined') return;
+        moleculeControls = initThree();
+        if (moleculeControls) {
+          setupVisibilityObserver();
+        }
+      };
+
+      const handleLoad = () => {
+        initializeThree();
+        window.removeEventListener('load', handleLoad);
+      };
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+
+          if (document.readyState === 'complete') {
+            initializeThree();
+          } else {
+            window.addEventListener('load', handleLoad);
+          }
+
+          observer.disconnect();
+        });
+      }, { threshold: 0.25 });
+
+      observer.observe(moleculeSection);
+    }
+
+    initSphereAnimation();
   });
-
-  const counters = document.querySelectorAll('.pub-number');
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateCounter(entry.target);
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.4 });
-
-  counters.forEach(c => io.observe(c));
-
-  initSphereAnimation();
-});
-
-window.addEventListener('load', initThree);
+}
 
 function animateCounter(el) {
   const target = +el.dataset.target;
@@ -54,7 +105,7 @@ function animateCounter(el) {
 
 function initThree() {
   const container = document.getElementById('moleculeContainer');
-  if (!container || typeof THREE === 'undefined') return;
+  if (!container || typeof THREE === 'undefined') return null;
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
@@ -86,7 +137,12 @@ function initThree() {
   scene.add(h1, h2, bond);
 
   let last = 0;
+  let frameId = null;
+  let running = false;
+
   function animate(time) {
+    if (!running) return;
+
     if (time - last > 33) { // ~30 fps
       h1.rotation.y += 0.01;
       h2.rotation.y += 0.01;
@@ -94,15 +150,33 @@ function initThree() {
       renderer.render(scene, camera);
       last = time;
     }
-    requestAnimationFrame(animate);
+
+    frameId = requestAnimationFrame(animate);
   }
-  requestAnimationFrame(animate);
+
+  function start() {
+    if (running) return;
+    running = true;
+    frameId = requestAnimationFrame(animate);
+  }
+
+  function stop() {
+    running = false;
+    if (frameId !== null) {
+      cancelAnimationFrame(frameId);
+      frameId = null;
+    }
+  }
+
+  start();
 
   window.addEventListener('resize', () => {
     camera.aspect = container.clientWidth / container.clientHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(container.clientWidth, container.clientHeight);
   });
+
+  return { start, stop };
 }
 
 function initSphereAnimation() {
