@@ -16,9 +16,11 @@ if (typeof window !== 'undefined') {
 
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
-    menuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('show');
-    });
+    if (menuToggle && navLinks) {
+      menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+      });
+    }
 
     const counters = document.querySelectorAll('.pub-number');
     if (!('IntersectionObserver' in window)) {
